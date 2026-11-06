@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Dashboard · IRM Ministries Pagsanjan</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div id="app-loading" class="app-loading">Checking your session…</div>
+    <div id="app-content" hidden>
+        <header class="app-header"><strong>IRM Ministries Pagsanjan</strong><button id="logout-button" class="secondary-button">Sign out</button></header>
+        <main class="content">
+            <p class="eyebrow">OVERVIEW</p>
+            <h1>Dashboard</h1>
+            <p class="muted">Welcome, <span id="profile-name"></span>.</p>
+            <section class="notice"><strong>Authentication is connected.</strong>
+                <p>Membership and attendance statistics will be added in the dashboard module.</p>
+            </section>
+            <p class="role-line">Your role: <strong id="profile-role"></strong></p>
+        </main>
+    </div>
+    <div id="toast-region" class="toast-region"></div>
+    <script type="module" src="./js/dashboard.js"></script>
+</body>
+
+</html>

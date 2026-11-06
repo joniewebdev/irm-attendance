@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#173f35">
+    <title>Sign in · IRM Ministries Pagsanjan</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body class="login-page">
+    <main class="login-shell">
+        <section class="login-card">
+            <div class="brand">
+                <div class="logo-placeholder">IRM</div>
+                <p class="eyebrow">IRM MINISTRIES PAGSANJAN</p>
+                <h1>Welcome back</h1>
+                <p class="muted">Sign in to the Attendance Management System.</p>
+            </div>
+            <form id="login-form" novalidate><label for="username">Username</label><input id="username" autocomplete="username" autocapitalize="none" required maxlength="80" placeholder="Enter your username"><label for="password">Password</label>
+                <div class="password-wrap"><input id="password" type="password" autocomplete="current-password" required placeholder="Enter your password"><button type="button" id="toggle-password" class="password-toggle">Show</button></div>
+                <div class="form-row"><label class="check-label"><input id="remember" type="checkbox" checked> Keep me signed in</label><button type="button" id="forgot-button" class="text-button">Forgot password?</button></div>
+                <p id="login-error" class="error" role="alert" hidden></p><button id="login-submit" class="primary-button" type="submit">Sign in</button>
+            </form>
+            <p class="login-footer">Access is available to invited church personnel only.</p>
+        </section>
+        <p class="copyright">© <span id="year"></span> IRM Ministries Pagsanjan</p>
+    </main>
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+    <script type="module" src="./js/login.js"></script>
+</body>
+
+</html>

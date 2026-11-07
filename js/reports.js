@@ -136,9 +136,9 @@ async function initializeAuth() {
 
     currentUser = profile;
 
-    $("sidebar-username").textContent = profile.username || "User";
-    $("header-username").textContent = profile.username || "User";
-    $("sidebar-role").textContent = profile.role.replaceAll("_", " ");
+    $("top-username").textContent = profile.username || "User";
+    $("user-avatar").textContent = (profile.username || "U").charAt(0).toUpperCase();
+    $("top-role").textContent = profile.role.replaceAll("_", " ");
 
     return true;
 }
@@ -709,7 +709,7 @@ function attachEvents() {
     $("export-btn").addEventListener("click", exportCSV);
     $("print-btn").addEventListener("click", () => window.print());
 
-    $("logout-btn").addEventListener("click", async () => {
+    $("logout-button").addEventListener("click", async () => {
         const { error } = await supabase.auth.signOut();
 
         if (error) {
@@ -725,6 +725,32 @@ function attachEvents() {
             window.location.replace("./index.html");
         }
     });
+
+    $("today-label").textContent = new Date().toLocaleDateString("en-PH", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        timeZone: "Asia/Manila"
+    });
+
+    const menuToggle = $("menu-toggle");
+    const sidebar = $("sidebar");
+    const scrim = $("mobile-scrim");
+
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        scrim.hidden = true;
+        menuToggle.setAttribute("aria-expanded", "false");
+    }
+
+    menuToggle.addEventListener("click", () => {
+        const isOpen = sidebar.classList.toggle("open");
+        scrim.hidden = !isOpen;
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    scrim.addEventListener("click", closeSidebar);
 }
 
 async function initialize() {
@@ -744,7 +770,7 @@ async function initialize() {
         await applyFilters();
 
         $("app-loading").hidden = true;
-        $("reports-app").hidden = false;
+        $("app-content").hidden = false;
 
     } catch (error) {
         console.error("Reports initialization error:", error);

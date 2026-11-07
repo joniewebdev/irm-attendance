@@ -10,26 +10,32 @@
 
     <title>Reports · IRM Ministries Pagsanjan</title>
 
-    <link rel="icon" href="data:,">
+    <link rel="icon" href="./images/irm-icon-192.jpg">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/dashboard.css">
     <link rel="stylesheet" href="./css/reports.css">
+
     <link rel="manifest" href="./manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="IRM Attendance">
+    <link rel="apple-touch-icon" href="./images/pwa-192.png">
 </head>
 
-<body>
+<body class="reports-page">
 
     <div id="app-loading" class="app-loading">
-        <img src="./images/logo.png" alt="" class="loading-logo">
-        <span>Loading reports…</span>
+        <img src="./images/irm-icon-512.jpg" alt="IRM Ministries Logo" class="loading-logo">
+        <span>Checking your session…</span>
     </div>
 
-    <div id="reports-app" class="app-shell" hidden>
+    <div id="app-content" class="app-shell" hidden>
 
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
+
             <a class="brand" href="./dashboard.html">
                 <span class="brand-mark">
-                    <img src="./images/logo.png" alt="" class="brand-logo">
+                    <img src="./images/irm-icon-512.jpg" alt="" class="brand-logo">
                 </span>
                 <span class="brand-copy">
                     <strong>IRM Ministries</strong>
@@ -37,81 +43,118 @@
                 </span>
             </a>
 
-            <nav class="sidebar-nav">
-                <span class="nav-label">MAIN MENU</span>
+            <div class="nav-label">WORKSPACE</div>
 
+            <nav class="side-nav" aria-label="Main navigation">
                 <a class="nav-item" href="./dashboard.html">
-                    <span class="nav-icon">⌂</span>
-                    Dashboard
+                    <span class="nav-icon">▦</span>Dashboard
                 </a>
 
                 <a class="nav-item" href="./members.html">
-                    <span class="nav-icon">♙</span>
-                    Members
+                    <span class="nav-icon">♙</span>Members
                 </a>
 
                 <a class="nav-item" href="./attendance.html">
-                    <span class="nav-icon">✓</span>
-                    Attendance
+                    <span class="nav-icon">✓</span>Attendance
                 </a>
 
                 <a class="nav-item active" href="./reports.html">
-                    <span class="nav-icon">▤</span>
-                    Reports
+                    <span class="nav-icon">▤</span>Reports
                 </a>
             </nav>
 
+            <div class="nav-label" id="admin-nav-label">ADMINISTRATION</div>
+
+            <nav class="side-nav" id="admin-nav">
+                <button class="nav-item coming-soon admin-only" data-module="User management">
+                    <span class="nav-icon">♧</span>
+                    User management
+                    <span class="nav-soon">Soon</span>
+                </button>
+
+                <button class="nav-item coming-soon admin-only" data-module="Audit logs">
+                    <span class="nav-icon">◷</span>
+                    Audit logs
+                    <span class="nav-soon">Soon</span>
+                </button>
+            </nav>
+
             <div class="sidebar-bottom">
-                <div class="sidebar-user">
-                    <strong id="sidebar-username">User</strong>
-                    <small id="sidebar-role">Viewer</small>
+                <div class="sidebar-help">
+                    <span class="help-dot"></span>
+                    <span>
+                        <strong>Attendance system</strong>
+                        <small>Connected to Supabase</small>
+                    </span>
                 </div>
-                <button id="logout-btn" class="logout-btn" type="button">
-                    Sign out
+
+                <button id="logout-button" class="logout-button">
+                    <span>↪</span> Sign out
                 </button>
             </div>
+
         </aside>
 
         <main class="main-area">
 
             <header class="topbar">
-                <div>
-                    <span class="topbar-eyebrow">IRM MINISTRIES PAGSANJAN</span>
-                    <h1>Reports</h1>
+                <button id="menu-toggle" class="menu-toggle"
+                    aria-label="Open navigation" aria-expanded="false">
+                    ☰
+                </button>
+
+                <div class="breadcrumb">
+                    Workspace <span>/</span> <strong>Reports</strong>
                 </div>
-                <div class="topbar-user">
-                    <span id="header-username">User</span>
+
+                <div class="topbar-right">
+                    <span class="today-label" id="today-label"></span>
+
+                    <div class="user-chip">
+                        <span class="avatar" id="user-avatar">U</span>
+                        <span class="user-chip-copy">
+                            <strong id="top-username">User</strong>
+                            <small id="top-role">Viewer</small>
+                        </span>
+                    </div>
                 </div>
             </header>
 
-            <section class="page-content reports-content">
+            <div class="page-content reports-content">
 
-                <div class="reports-heading">
+                <section class="reports-heading">
                     <div>
-                        <h2>Attendance Reports</h2>
-                        <p>Review attendance records and member participation.</p>
+                        <p class="eyebrow">ATTENDANCE ANALYTICS</p>
+                        <h1>Reports</h1>
+                        <p class="page-subtitle">
+                            Review attendance records and member participation.
+                        </p>
                     </div>
 
                     <div class="report-actions">
-                        <button id="refresh-btn" class="btn-secondary" type="button">
+                        <button id="refresh-btn" class="refresh-button" type="button">
                             ↻ Refresh
                         </button>
-                        <button id="print-btn" class="btn-secondary" type="button">
+                        <button id="print-btn" class="secondary-action" type="button">
                             Print
                         </button>
-                        <button id="export-btn" class="btn-primary" type="button">
+                        <button id="export-btn" class="primary-action" type="button">
                             Export CSV
                         </button>
                     </div>
-                </div>
+                </section>
+
+                <div id="page-error" class="page-error" hidden></div>
 
                 <section class="report-filters">
 
                     <div class="filter-heading">
                         <div>
-                            <h3>Report filters</h3>
+                            <p class="eyebrow">CUSTOMIZE REPORT</p>
+                            <h2>Report filters</h2>
                             <p>Choose the period and categories to include.</p>
                         </div>
+
                         <button id="reset-filters" class="text-button" type="button">
                             Reset filters
                         </button>
@@ -194,14 +237,14 @@
 
                     <div class="filter-footer">
                         <span id="filter-status">Ready</span>
-                        <button id="apply-filters" class="btn-primary" type="button">
+                        <button id="apply-filters" class="primary-action" type="button">
                             Apply filters
                         </button>
                     </div>
 
                 </section>
 
-                <section class="report-summary">
+                <section class="report-summary" aria-label="Attendance summary">
 
                     <article class="summary-card">
                         <span>Events</span>
@@ -233,7 +276,8 @@
 
                     <div class="results-heading">
                         <div>
-                            <h3 id="results-title">Event attendance</h3>
+                            <p class="eyebrow">REPORT RESULTS</p>
+                            <h2 id="results-title">Event attendance</h2>
                             <p id="results-description">
                                 Attendance summary for each event.
                             </p>
@@ -262,12 +306,16 @@
 
                 <footer class="page-footer">
                     <span>IRM Ministries Pagsanjan · Attendance Management System</span>
-                    <span>Event dates use Asia/Manila time</span>
+                    <span>All times in Asia/Manila</span>
                 </footer>
 
-            </section>
+            </div>
         </main>
     </div>
+
+    <div id="mobile-scrim" class="mobile-scrim" hidden></div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
 
     <script type="module" src="./js/reports.js"></script>
     <script type="module" src="./js/pwa.js"></script>

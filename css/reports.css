@@ -1,0 +1,410 @@
+
+[hidden] {
+    display: none !important;
+}
+
+.reports-content {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.reports-heading,
+.filter-heading,
+.results-heading,
+.filter-footer,
+.report-actions,
+.report-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.reports-heading h2,
+.filter-heading h3,
+.results-heading h3 {
+    margin: 0 0 5px;
+    color: #173f35;
+}
+
+.reports-heading p,
+.filter-heading p,
+.results-heading p {
+    margin: 0;
+    color: #718078;
+    font-size: .88rem;
+}
+
+.report-actions {
+    flex-wrap: wrap;
+}
+
+.report-actions button,
+.filter-footer button {
+    border: 0;
+    border-radius: 9px;
+    padding: 10px 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font: inherit;
+}
+
+.btn-primary {
+    background: #173f35;
+    color: #fff;
+}
+
+.btn-secondary {
+    background: #eaf1ed;
+    color: #173f35;
+}
+
+.report-actions button:hover,
+.filter-footer button:hover {
+    opacity: .88;
+}
+
+.report-filters,
+.report-results {
+    background: #fff;
+    border: 1px solid #e3ebe6;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.filter-heading {
+    margin-bottom: 20px;
+}
+
+.text-button {
+    border: 0;
+    background: transparent;
+    color: #28745b;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.filter-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.filter-grid label span {
+    font-size: .79rem;
+    font-weight: 700;
+    color: #52635a;
+}
+
+.filter-grid input,
+.filter-grid select {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    border: 1px solid #dce5df;
+    border-radius: 8px;
+    padding: 0 10px;
+    background: #fff;
+    color: #263d32;
+    font: inherit;
+    font-size: .86rem;
+}
+
+.filter-grid input:focus,
+.filter-grid select:focus {
+    outline: 2px solid #b5d4c2;
+    border-color: #6c9c80;
+}
+
+.filter-footer {
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid #edf1ee;
+}
+
+.filter-footer span {
+    color: #718078;
+    font-size: .82rem;
+}
+
+.filter-footer button:disabled,
+.report-actions button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.report-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.summary-card {
+    background: #fff;
+    border: 1px solid #e3ebe6;
+    border-radius: 13px;
+    padding: 18px;
+    min-width: 0;
+}
+
+.summary-card span {
+    display: block;
+    color: #65756c;
+    font-size: .83rem;
+    font-weight: 600;
+}
+
+.summary-card strong {
+    display: block;
+    margin: 9px 0 4px;
+    color: #173f35;
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+.summary-card small {
+    color: #89958e;
+    font-size: .76rem;
+}
+
+.report-results {
+    min-width: 0;
+}
+
+.results-heading {
+    margin-bottom: 17px;
+}
+
+.results-heading > span {
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #edf4ef;
+    color: #315c46;
+    padding: 6px 11px;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.report-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .86rem;
+    text-align: left;
+}
+
+.report-table th {
+    padding: 13px 12px;
+    background: #f3f7f4;
+    color: #53675b;
+    font-size: .77rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.report-table td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #edf1ee;
+    color: #35483d;
+    vertical-align: top;
+}
+
+.report-table tbody tr:hover {
+    background: #fafcfb;
+}
+
+.report-table .empty-cell {
+    padding: 40px 15px;
+    text-align: center;
+    color: #8a9790;
+}
+
+.report-footer {
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid #edf1ee;
+    color: #849188;
+    font-size: .76rem;
+}
+
+.report-load-error {
+    max-width: 420px;
+    padding: 24px;
+    border: 1px solid #e3ebe6;
+    border-radius: 14px;
+    background: #fff;
+    text-align: center;
+}
+
+.report-load-error strong {
+    color: #173f35;
+}
+
+.report-load-error p {
+    color: #718078;
+    overflow-wrap: anywhere;
+}
+
+.report-load-error button {
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    background: #173f35;
+    color: #fff;
+    cursor: pointer;
+}
+
+@media (max-width: 1050px) {
+    .filter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .report-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .reports-content {
+        gap: 15px;
+    }
+
+    .reports-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .report-actions {
+        width: 100%;
+    }
+
+    .report-actions button {
+        flex: 1;
+        padding: 10px 9px;
+        font-size: .82rem;
+    }
+
+    .report-filters,
+    .report-results {
+        padding: 15px;
+    }
+
+    .filter-heading {
+        align-items: flex-start;
+    }
+
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report-summary {
+        gap: 9px;
+    }
+
+    .summary-card {
+        padding: 13px;
+    }
+
+    .summary-card strong {
+        font-size: 1.5rem;
+    }
+
+    .summary-card span {
+        font-size: .77rem;
+    }
+
+    .filter-footer {
+        align-items: flex-start;
+    }
+
+    .results-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .report-table {
+        min-width: 600px;
+    }
+}
+
+@media print {
+    @page {
+        size: landscape;
+        margin: 12mm;
+    }
+
+    body {
+        background: #fff !important;
+    }
+
+    .sidebar,
+    .topbar,
+    .report-filters,
+    .report-actions,
+    .page-footer,
+    #app-loading {
+        display: none !important;
+    }
+
+    .app-shell,
+    .main-area,
+    .page-content,
+    .reports-content {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .reports-heading {
+        margin-bottom: 20px;
+    }
+
+    .reports-heading::after {
+        content: "IRM Ministries Pagsanjan";
+        display: block;
+        font-size: 11px;
+        color: #555;
+    }
+
+    .report-summary {
+        margin-bottom: 20px;
+    }
+
+    .summary-card,
+    .report-results {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+    }
+
+    .report-table th {
+        background: #eee !important;
+        color: #000 !important;
+        print-color-adjust: exact;
+    }
+
+    .report-table td {
+        color: #000 !important;
+    }
+
+    .report-table-wrap {
+        overflow: visible;
+    }
+
+    .report-table {
+        min-width: 0;
+    }
+}

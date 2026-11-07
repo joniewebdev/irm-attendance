@@ -1,0 +1,276 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#173f35">
+
+    <title>Reports · IRM Ministries Pagsanjan</title>
+
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/reports.css">
+    <link rel="manifest" href="./manifest.json">
+</head>
+
+<body>
+
+    <div id="app-loading" class="app-loading">
+        <img src="./images/logo.png" alt="" class="loading-logo">
+        <span>Loading reports…</span>
+    </div>
+
+    <div id="reports-app" class="app-shell" hidden>
+
+        <aside class="sidebar">
+            <a class="brand" href="./dashboard.html">
+                <span class="brand-mark">
+                    <img src="./images/logo.png" alt="" class="brand-logo">
+                </span>
+                <span class="brand-copy">
+                    <strong>IRM Ministries</strong>
+                    <small>Pagsanjan</small>
+                </span>
+            </a>
+
+            <nav class="sidebar-nav">
+                <span class="nav-label">MAIN MENU</span>
+
+                <a class="nav-item" href="./dashboard.html">
+                    <span class="nav-icon">⌂</span>
+                    Dashboard
+                </a>
+
+                <a class="nav-item" href="./members.html">
+                    <span class="nav-icon">♙</span>
+                    Members
+                </a>
+
+                <a class="nav-item" href="./attendance.html">
+                    <span class="nav-icon">✓</span>
+                    Attendance
+                </a>
+
+                <a class="nav-item active" href="./reports.html">
+                    <span class="nav-icon">▤</span>
+                    Reports
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-user">
+                    <strong id="sidebar-username">User</strong>
+                    <small id="sidebar-role">Viewer</small>
+                </div>
+                <button id="logout-btn" class="logout-btn" type="button">
+                    Sign out
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-area">
+
+            <header class="topbar">
+                <div>
+                    <span class="topbar-eyebrow">IRM MINISTRIES PAGSANJAN</span>
+                    <h1>Reports</h1>
+                </div>
+                <div class="topbar-user">
+                    <span id="header-username">User</span>
+                </div>
+            </header>
+
+            <section class="page-content reports-content">
+
+                <div class="reports-heading">
+                    <div>
+                        <h2>Attendance Reports</h2>
+                        <p>Review attendance records and member participation.</p>
+                    </div>
+
+                    <div class="report-actions">
+                        <button id="refresh-btn" class="btn-secondary" type="button">
+                            ↻ Refresh
+                        </button>
+                        <button id="print-btn" class="btn-secondary" type="button">
+                            Print
+                        </button>
+                        <button id="export-btn" class="btn-primary" type="button">
+                            Export CSV
+                        </button>
+                    </div>
+                </div>
+
+                <section class="report-filters">
+
+                    <div class="filter-heading">
+                        <div>
+                            <h3>Report filters</h3>
+                            <p>Choose the period and categories to include.</p>
+                        </div>
+                        <button id="reset-filters" class="text-button" type="button">
+                            Reset filters
+                        </button>
+                    </div>
+
+                    <div class="filter-grid">
+
+                        <label>
+                            <span>Date from</span>
+                            <input type="date" id="date-from">
+                        </label>
+
+                        <label>
+                            <span>Date to</span>
+                            <input type="date" id="date-to">
+                        </label>
+
+                        <label>
+                            <span>Report type</span>
+                            <select id="report-type">
+                                <option value="event">Event attendance</option>
+                                <option value="daily">Daily attendance</option>
+                                <option value="weekly">Weekly attendance</option>
+                                <option value="monthly">Monthly attendance</option>
+                                <option value="kapisanan">By Kapisanan</option>
+                                <option value="individual">Individual attendance</option>
+                                <option value="frequent">Frequent attendees</option>
+                                <option value="no-attendance">No attendance</option>
+                                <option value="visitors">Visitor attendance</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            <span>Event type</span>
+                            <select id="event-type">
+                                <option value="">All event types</option>
+                                <option value="sunday_service">Sunday Service</option>
+                                <option value="midweek_service">Midweek Service</option>
+                                <option value="prayer_meeting">Prayer Meeting</option>
+                                <option value="youth_fellowship">Youth Fellowship</option>
+                                <option value="special_event">Special Event</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            <span>Specific event</span>
+                            <select id="event-filter">
+                                <option value="">All events</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            <span>Kapisanan</span>
+                            <select id="kapisanan-filter">
+                                <option value="">All Kapisanan</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            <span>Gender</span>
+                            <select id="gender-filter">
+                                <option value="">All genders</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            <span>Membership status</span>
+                            <select id="status-filter">
+                                <option value="">All statuses</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="abroad">Abroad</option>
+                            </select>
+                        </label>
+
+                    </div>
+
+                    <div class="filter-footer">
+                        <span id="filter-status">Ready</span>
+                        <button id="apply-filters" class="btn-primary" type="button">
+                            Apply filters
+                        </button>
+                    </div>
+
+                </section>
+
+                <section class="report-summary">
+
+                    <article class="summary-card">
+                        <span>Events</span>
+                        <strong id="summary-events">0</strong>
+                        <small>Events in selected period</small>
+                    </article>
+
+                    <article class="summary-card">
+                        <span>Total attendance</span>
+                        <strong id="summary-attendance">0</strong>
+                        <small>Recorded attendances</small>
+                    </article>
+
+                    <article class="summary-card">
+                        <span>Unique attendees</span>
+                        <strong id="summary-unique">0</strong>
+                        <small>Different people</small>
+                    </article>
+
+                    <article class="summary-card">
+                        <span>Average attendance</span>
+                        <strong id="summary-average">0</strong>
+                        <small>Per event</small>
+                    </article>
+
+                </section>
+
+                <section class="report-results">
+
+                    <div class="results-heading">
+                        <div>
+                            <h3 id="results-title">Event attendance</h3>
+                            <p id="results-description">
+                                Attendance summary for each event.
+                            </p>
+                        </div>
+
+                        <span id="results-count">0 records</span>
+                    </div>
+
+                    <div class="report-table-wrap">
+                        <table class="report-table">
+                            <thead id="report-thead"></thead>
+                            <tbody id="report-tbody">
+                                <tr>
+                                    <td class="empty-cell">Loading reports…</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="report-footer">
+                        <span id="report-footer-count">0 records</span>
+                        <span>IRM Ministries Pagsanjan</span>
+                    </div>
+
+                </section>
+
+                <footer class="page-footer">
+                    <span>IRM Ministries Pagsanjan · Attendance Management System</span>
+                    <span>Event dates use Asia/Manila time</span>
+                </footer>
+
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="./js/reports.js"></script>
+    <script type="module" src="./js/pwa.js"></script>
+
+</body>
+</html>

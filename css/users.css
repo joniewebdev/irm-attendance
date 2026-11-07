@@ -407,6 +407,41 @@
     font-size: 13px;
 }
 
+/* USER DETAILS MODAL POSITIONING */
+
+#user-modal.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#user-modal[hidden] {
+    display: none !important;
+}
+
+#user-modal .user-modal-card {
+    position: relative;
+    width: min(560px, 100%);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    margin: auto;
+}
+
+@media (max-width: 600px) {
+    #user-modal.modal-backdrop {
+        padding: 12px;
+    }
+
+    #user-modal .user-modal-card {
+        max-height: calc(100vh - 24px);
+    }
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 1100px) {

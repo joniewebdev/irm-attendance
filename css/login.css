@@ -33,9 +33,15 @@ body.login-page {
     display: grid;
     place-items: center;
     background: #e7f0eb;
-    color: #173f35;
-    border: 1px dashed #8aa99a;
-    font-weight: 800
+    border: 1px solid #d2e2d9;
+    overflow: hidden;
+}
+
+.app-logo {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    display: block;
 }
 
 .brand h1 {

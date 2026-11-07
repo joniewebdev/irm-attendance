@@ -734,23 +734,24 @@ function attachEvents() {
         timeZone: "Asia/Manila"
     });
 
-    const menuToggle = $("menu-toggle");
     const sidebar = $("sidebar");
     const scrim = $("mobile-scrim");
+    const menuToggle = $("menu-toggle");
 
-    function closeSidebar() {
-        sidebar.classList.remove("open");
+    function closeMenu() {
+        sidebar.classList.remove("sidebar-open");
         scrim.hidden = true;
         menuToggle.setAttribute("aria-expanded", "false");
     }
 
     menuToggle.addEventListener("click", () => {
-        const isOpen = sidebar.classList.toggle("open");
+        const isOpen = sidebar.classList.toggle("sidebar-open");
+
         scrim.hidden = !isOpen;
         menuToggle.setAttribute("aria-expanded", String(isOpen));
     });
 
-    scrim.addEventListener("click", closeSidebar);
+    scrim.addEventListener("click", closeMenu);
 }
 
 async function initialize() {

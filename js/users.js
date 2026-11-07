@@ -542,6 +542,216 @@ function closeUserModal() {
 }
 
 /* =========================================
+   INVITE USER
+   ========================================= */
+
+function openInviteModal() {
+    $("invite-user-form").reset();
+    $("invite-error").hidden = true;
+    $("invite-error").textContent = "";
+
+    $("invite-user-modal").hidden = false;
+    document.body.classList.add("modal-open");
+
+    loadInviteMembers();
+}
+
+function closeInviteModal() {
+    $("invite-user-modal").hidden = true;
+    document.body.classList.remove("modal-open");
+}
+
+async function loadInviteMembers() {
+    const select = $("invite-member");
+
+    select.disabled = true;
+    select.innerHTML = `<option value="">Loading members...</option>`;
+
+    try {
+        const { data, error } = await supabase
+            .from("member_directory")
+            .select(`
+                id,
+                first_name,
+                middle_name,
+                last_name,
+                suffix,
+                nickname,
+                kapisanan_code,
+                kapisanan_name,
+                is_archived,
+                is_visitor
+            `)
+            .eq("is_archived", false)
+            .eq("is_visitor", false)
+            .order("last_name", { ascending: true });
+
+        if (error) throw error;
+
+        // Exclude members who already have a user profile.
+        const existingMemberIds = new Set(
+            state.users.map((user) => user.member_id)
+        );
+
+        state.inviteMembers = (data || []).filter(
+            (member) => !existingMemberIds.has(member.id)
+        );
+
+        renderInviteMembers();
+
+    } catch (error) {
+        console.error("Unable to load invitation members:", error);
+
+        select.innerHTML =
+            `<option value="">Unable to load members</option>`;
+
+        showInviteError(
+            error.message || "Unable to load available members."
+        );
+
+    } finally {
+        select.disabled = false;
+    }
+}
+
+function renderInviteMembers() {
+    const select = $("invite-member");
+    const search = $("invite-member-search").value.trim().toLowerCase();
+
+    const members = state.inviteMembers.filter((member) => {
+        const name = fullName(member).toLowerCase();
+        const nickname = (member.nickname || "").toLowerCase();
+
+        return name.includes(search) || nickname.includes(search);
+    });
+
+    select.innerHTML = "";
+
+    if (members.length === 0) {
+        select.innerHTML = `
+            <option value="">
+                No available members found
+            </option>
+        `;
+        return;
+    }
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Select a member...";
+    select.appendChild(placeholder);
+
+    members.forEach((member) => {
+        const option = document.createElement("option");
+        option.value = member.id;
+
+        const kapisanan =
+            member.kapisanan_name ||
+            member.kapisanan_code ||
+            "No Kapisanan";
+
+        option.textContent =
+            `${fullName(member)} · ${kapisanan}`;
+
+        select.appendChild(option);
+    });
+}
+
+function showInviteError(message) {
+    const element = $("invite-error");
+    element.textContent = message;
+    element.hidden = false;
+}
+
+async function submitInvitation(event) {
+    event.preventDefault();
+
+    const submitButton = $("send-invitation");
+    const memberId = $("invite-member").value;
+    const email = $("invite-email").value.trim();
+    const username = $("invite-username").value.trim().toLowerCase();
+    const role = $("invite-role").value;
+
+    $("invite-error").hidden = true;
+    $("invite-error").textContent = "";
+
+    if (!memberId) {
+        showInviteError("Please select an existing member.");
+        return;
+    }
+
+    if (!/^[a-z0-9._-]{3,30}$/.test(username)) {
+        showInviteError(
+            "Username must be 3–30 characters and contain only letters, numbers, dots, underscores, or hyphens."
+        );
+        return;
+    }
+
+    if (!["administrator", "attendance_encoder", "viewer"].includes(role)) {
+        showInviteError("Please select a valid role.");
+        return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending invitation...";
+
+    try {
+        const { data, error } = await supabase.functions.invoke(
+            "admin-invite-user",
+            {
+                body: {
+                    member_id: memberId,
+                    email,
+                    username,
+                    role
+                }
+            }
+        );
+
+        if (error) {
+            let message = error.message || "Unable to send invitation.";
+
+            // Try to retrieve the Edge Function's actual error message.
+            if (error.context && typeof error.context.json === "function") {
+                try {
+                    const response = await error.context.json();
+                    if (response?.error) message = response.error;
+                } catch {
+                    // Keep the original error message.
+                }
+            }
+
+            throw new Error(message);
+        }
+
+        if (data?.error || !data?.success) {
+            throw new Error(data?.error || "Invitation could not be completed.");
+        }
+
+        closeInviteModal();
+
+        showToast(
+            data.message || "Invitation sent successfully.",
+            "success"
+        );
+
+        // Refresh the directory so the new pending account appears.
+        await loadUsers();
+
+    } catch (error) {
+        console.error("Invitation failed:", error);
+
+        showInviteError(
+            error.message || "Unable to send invitation. Please try again."
+        );
+
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Invitation";
+    }
+}
+
+/* =========================================
    MOBILE SIDEBAR
    ========================================= */
 
@@ -568,6 +778,23 @@ function attachMenuEvents() {
 
 function attachEvents() {
     $("refresh-users").addEventListener("click", loadUsers);
+
+    // Invitation modal
+    $("add-user-button").addEventListener("click", openInviteModal);
+
+    $("invite-user-form").addEventListener("submit", submitInvitation);
+
+    $("invite-member-search").addEventListener("input", renderInviteMembers);
+
+    document.querySelectorAll('[data-close="invite-user-modal"]').forEach((button) => {
+        button.addEventListener("click", closeInviteModal);
+    });
+
+    $("invite-user-modal").addEventListener("click", (event) => {
+        if (event.target === $("invite-user-modal")) {
+            closeInviteModal();
+        }
+    });
 
     $("user-search").addEventListener("input", applyFilters);
     $("filter-role").addEventListener("change", applyFilters);
@@ -599,7 +826,11 @@ function attachEvents() {
     });
 
     document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && !$("user-modal").hidden) {
+    if (event.key !== "Escape") return;
+
+        if (!$("invite-user-modal").hidden) {
+            closeInviteModal();
+        } else if (!$("user-modal").hidden) {
             closeUserModal();
         }
     });

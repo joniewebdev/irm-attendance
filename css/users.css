@@ -407,6 +407,127 @@
     font-size: 13px;
 }
 
+
+/* =========================================
+   INVITE USER
+   ========================================= */
+
+.users-heading-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.invite-user-modal-card {
+    width: min(560px, calc(100vw - 32px));
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+
+#invite-user-modal[hidden] {
+    display: none !important;
+}
+
+.invite-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.invite-user-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.invite-user-form .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary, #26352f);
+}
+
+.invite-user-form input,
+.invite-user-form select {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--border, #dce4df);
+    border-radius: 9px;
+    background: #fff;
+    color: #26352f;
+    font: inherit;
+    font-size: 14px;
+}
+
+.invite-user-form input:focus,
+.invite-user-form select:focus {
+    outline: none;
+    border-color: #26745c;
+    box-shadow: 0 0 0 3px rgba(38, 116, 92, 0.12);
+}
+
+.invite-user-form .form-group small {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #7b8982;
+}
+
+.invite-notice {
+    padding: 12px 14px;
+    border-radius: 9px;
+    background: #f0f6f2;
+    color: #426451;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.invite-user-form .form-error {
+    padding: 11px 13px;
+    border-radius: 8px;
+    background: #fff0ef;
+    color: #b42318;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.invite-user-form .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.invite-user-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .users-heading-actions {
+        width: 100%;
+    }
+
+    .users-heading-actions button {
+        flex: 1;
+    }
+
+    .invite-user-modal-card {
+        width: calc(100vw - 24px);
+        max-height: calc(100vh - 24px);
+    }
+
+    .invite-user-form .modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .invite-user-form .modal-actions button {
+        width: 100%;
+    }
+}
+
+
 /* USER DETAILS MODAL POSITIONING */
 
 #user-modal.modal-backdrop {

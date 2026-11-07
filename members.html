@@ -146,12 +146,19 @@
                 <div class="override-panel" id="override-panel" hidden>
                     <div class="form-section-title">Administrator status override</div>
                     <p>Normally, status is calculated from attendance in the last three months. An override takes priority.</p>
-                    <div class="form-grid"><label>Override status<select id="status-override">
+                    <div class="form-grid">
+                        <label>Override status
+                            <select id="status-override">
                                 <option value="">Automatic (based on attendance)</option>
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                                 <option value="abroad">Abroad</option>
-                            </select></label><label class="full-field">Reason for override<textarea id="override-reason" rows="2" maxlength="500" placeholder="Required when an override is selected"></textarea></label></div>
+                            </select>
+                        </label>
+                        <label class="full-field">Reason for override
+                            <textarea id="override-reason" rows="2" maxlength="500" placeholder="Required when an override is selected"></textarea>
+                        </label>
+                    </div>
                 </div>
                 <div id="duplicate-warning" class="duplicate-warning" hidden></div>
                 <div class="form-error" id="form-error" hidden></div>

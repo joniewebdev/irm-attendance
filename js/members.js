@@ -168,6 +168,7 @@ function openForm(member = null) {
     $("is-visitor").checked = !!member?.is_visitor;
     $("is-unlisted").checked = !!member?.is_unlisted;
     if (isAdmin) {
+        $("override-panel").hidden = false;
         $("status-override").value = member?.status_override || "";
         $("override-reason").value = member?.status_override_reason || "";
     }

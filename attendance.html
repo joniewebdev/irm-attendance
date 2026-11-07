@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/dashboard.css">
   <link rel="stylesheet" href="./css/attendance.css">
+
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#173f35">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="IRM Attendance">
+  <link rel="apple-touch-icon" href="./images/pwa-192.png">
 </head>
 <body class="attendance-page">
   <div id="app-loading" class="app-loading">
@@ -74,5 +81,6 @@
   <div class="confirm-backdrop" id="archive-modal" hidden><section class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="archive-title"><div class="confirm-icon">⌑</div><h2 id="archive-title">Archive this event?</h2><p>It will be hidden from the active event list. Attendance records will be preserved.</p><div class="modal-actions"><button class="secondary-action" data-close="archive-modal">Cancel</button><button id="confirm-archive" class="danger-action">Archive event</button></div></section></div>
   <div id="toast-region" class="toast-region" aria-live="polite"></div>
   <script type="module" src="./js/attendance.js"></script>
+  <script type="module" src="./js/pwa.js"></script>
 </body>
 </html>

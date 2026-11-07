@@ -171,6 +171,9 @@ async function loadMembers() {
     if (error) throw error;
     members = data || [];
     members.forEach(m => memberMap.set(m.id, m));
+
+    console.log("Attendance members:", data);
+    console.log("Attendance member error:", error);
 }
 
 function showNoEvent() {

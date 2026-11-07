@@ -243,15 +243,43 @@ function renderSelectedEvent() {
     renderPicker();
 }
 
+
 function renderPicker() {
     const q = $("member-search").value.trim().toLowerCase();
-    if (!q) {
-        $("member-picker").innerHTML = '<div class="list-placeholder">Search for a member above to add them.</div>';
-        return;
-    }
     const already = new Set(records.map(r => r.member_id));
-    const matches = members.filter(m => !already.has(m.id) && `${m.first_name} ${m.middle_name||""} ${m.last_name} ${m.nickname||""} ${m.kapisanan_code||""}`.toLowerCase().includes(q)).slice(0, 40);
-    $("member-picker").innerHTML = matches.length ? matches.map(m => `<button class="picker-person" data-add-member="${esc(m.id)}"><span class="person-avatar">${esc((m.first_name||"?").slice(0,1).toUpperCase())}</span><span class="person-copy"><strong>${esc(fullName(m))}</strong><small>${esc(m.kapisanan_code||"Unassigned")} · ${m.is_visitor?"Visitor":"Member"}</small></span><span class="picker-add">＋</span></button>`).join("") : '<div class="list-placeholder">No matching members available.</div>';
+    const matches = members
+        .filter(m => !already.has(m.id))
+        .filter(m => {
+            const searchable = [
+                m.first_name,
+                m.middle_name,
+                m.last_name,
+                m.nickname,
+                m.kapisanan_code
+            ].filter(Boolean).join(" ").toLowerCase();
+
+            return !q || searchable.includes(q);
+        })
+        .slice(0, 40);
+
+    $("member-picker").innerHTML = matches.length
+        ? matches.map(m => `
+            <button class="picker-person" data-add-member="${esc(m.id)}">
+                <span class="person-avatar">
+                    ${esc((m.first_name || "?").slice(0, 1).toUpperCase())}
+                </span>
+                <span class="person-copy">
+                    <strong>${esc(fullName(m))}</strong>
+                    <small>
+                        ${esc(m.kapisanan_code || "Unassigned")}
+                        · ${m.is_visitor ? "Visitor" : "Member"}
+                        ${m.membership_status === "inactive" ? " · Inactive" : ""}
+                    </small>
+                </span>
+                <span class="picker-add">＋</span>
+            </button>
+        `).join("")
+        : '<div class="list-placeholder">No matching members available.</div>';
 }
 async function addAttendance(memberId) {
     if (!canWrite || !selectedEvent) return;

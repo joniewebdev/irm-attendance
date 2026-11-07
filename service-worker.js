@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "irm-attendance-v1";
+const CACHE_NAME = "irm-attendance-v1-1-1";
 
 const APP_SHELL = [
     "./",
